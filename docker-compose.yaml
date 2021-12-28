@@ -1,0 +1,25 @@
+version: '3'
+services:
+  react_app:
+    build: 
+      context: .
+      dockerfile: ./Dockerfile.dev
+    restart: always
+    # stdin_open: true
+    # tty: true
+    ports:
+      - '3000:3000'
+    volumes: 
+      - .:/app
+      - /app/node_modules
+  tests:
+    build: 
+      context: .
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    stdin_open: true
+    tty: true
+    command: ["npm", "run", "test"]
+
